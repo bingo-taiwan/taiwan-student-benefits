@@ -1,0 +1,15 @@
+# Personal tracker (generated from template)
+student_benefits_tracker.json
+
+# Logs
+reminder.log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
