@@ -1,168 +1,199 @@
-# Taiwan Student Benefits Tracker
+# 🎓 台灣學生免費資源追蹤器
 
-A Claude Code skill + cross-platform reminder system that helps Taiwan university students (`.edu.tw`) discover, track, and claim **50+ free subscriptions** worth over **$4,400/year**.
+[English](README.en.md)
 
-## What's Included
+一套 Claude Code skill + 跨平台提醒系統，幫助台灣大專院校學生（`.edu.tw`）發現、追蹤並領取 **37+ 項免費訂閱服務**，總價值超過 **$4,400 美元/年**。
 
-| Category | Examples | Count |
-|----------|---------|-------|
-| GitHub Student Pack | Copilot, DigitalOcean $200, Frontend Masters | 12 |
-| Dev Tools & IDEs | JetBrains, Cursor Pro, Postman | 3 |
-| Cloud & Hosting | Azure $100, AWS, Google Cloud $300, Oracle | 5 |
-| Databases | Supabase, Neon | 2 |
-| Design | Figma Pro, Autodesk, Miro | 3 |
-| Productivity | Notion Plus, MS 365, Obsidian | 3 |
-| Learning & Certs | Coursera, Kaggle, NVIDIA DLI, IBM | 5+ |
-| Media | Spotify, Apple Music, YouTube Premium | 3 |
-| AI Tools | Perplexity Pro | 1 |
-| **Total** | | **37+ tracked** |
+## 包含哪些福利？
 
-## Quick Start
+| 分類 | 範例 | 數量 |
+|------|------|------|
+| GitHub Student Pack | Copilot、DigitalOcean $200、Frontend Masters | 12 |
+| 開發工具 & IDE | JetBrains 全家桶、Cursor Pro、Postman | 3 |
+| 雲端服務 | Azure $100、AWS、Google Cloud $300、Oracle | 5 |
+| 資料庫 | Supabase、Neon | 2 |
+| 設計工具 | Figma Professional、Autodesk、Miro | 3 |
+| 生產力工具 | Notion Plus、Microsoft 365、Obsidian | 3 |
+| 學習平台 & 認證 | Coursera、Kaggle、NVIDIA DLI、IBM | 5+ |
+| 影音串流 | Spotify、Apple Music、YouTube Premium | 3 |
+| AI 工具 | Perplexity Pro | 1 |
+| **合計** | | **37+ 項** |
 
-### As a Claude Code Skill
+## 快速開始
 
-1. Copy this repo into your Claude Code skills directory:
+### 方式一：搭配 Claude Code 使用
+
+1. Clone 這個 repo 並連結到 Claude Code 的 skills 目錄：
+
    ```bash
-   # Clone
    git clone https://github.com/bingo-taiwan/taiwan-student-benefits.git
-
-   # Symlink into Claude Code skills
-   # Windows (PowerShell as Admin):
-   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\taiwan-student-benefits" -Target "path\to\taiwan-student-benefits"
-
-   # macOS / Linux:
-   ln -s /path/to/taiwan-student-benefits ~/.claude/skills/taiwan-student-benefits
    ```
 
-2. In Claude Code, just say:
-   - "Help me set up student benefits tracking"
-   - "What free subscriptions can I get with my .edu.tw email?"
-   - "Set up student benefit reminders"
+   **Windows（以系統管理員開啟 PowerShell）：**
+   ```powershell
+   New-Item -ItemType SymbolicLink `
+     -Path "$env:USERPROFILE\.claude\skills\taiwan-student-benefits" `
+     -Target "你的路徑\taiwan-student-benefits"
+   ```
 
-### Standalone (No Claude Code)
+   **macOS / Linux：**
+   ```bash
+   ln -s /你的路徑/taiwan-student-benefits ~/.claude/skills/taiwan-student-benefits
+   ```
 
-1. Copy `tracker_template.json` to `student_benefits_tracker.json`
-2. Edit: fill in your `.edu.tw` email, remove benefits you don't want
-3. Run the reminder script:
+2. 在 Claude Code 中直接說：
+   - 「幫我設定學生福利追蹤」
+   - 「我有 .edu.tw 信箱，有哪些免費訂閱可以申請？」
+   - 「設定學生福利提醒」
 
-   **Windows:**
+### 方式二：獨立使用（不需要 Claude Code）
+
+1. 複製追蹤模板：
+   ```bash
+   cp tracker_template.json student_benefits_tracker.json
+   ```
+
+2. 編輯 `student_benefits_tracker.json`：填入你的 `.edu.tw` 信箱，移除不需要的項目
+
+3. 執行提醒腳本：
+
+   **Windows：**
    ```powershell
    powershell -ExecutionPolicy Bypass -File scripts/check_benefits.ps1
    ```
 
-   **macOS / Linux:**
+   **macOS / Linux：**
    ```bash
    bash scripts/check_benefits.sh
    ```
 
-## Setting Up Scheduled Reminders
+## 設定排程提醒
 
-### Windows (Task Scheduler)
+### Windows（工作排程器）
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/setup_schedule.ps1
 ```
 
-Creates a daily 09:00 reminder + weekly Monday tracker update prompt.
+會建立：每天早上 9:00 提醒 + 每週一更新追蹤狀態。
 
-### macOS (launchd)
+### macOS（launchd）
 
 ```bash
 bash scripts/setup_schedule_macos.sh
 ```
 
-Creates a daily 09:00 launchd job.
+會建立：每天早上 9:00 的 launchd 排程。
 
-### Linux (cron)
+### Linux（cron）
 
 ```bash
 chmod +x scripts/check_benefits.sh
 (crontab -l 2>/dev/null; echo "0 9 * * * $(pwd)/scripts/check_benefits.sh") | crontab -
 ```
 
-## How It Works
+## 運作方式
 
 ```
-tracker_template.json          # 37 benefits with URLs and metadata
+tracker_template.json          ← 37 項福利的完整模板
         │
         ▼
-student_benefits_tracker.json  # Your personal copy (track progress)
+student_benefits_tracker.json  ← 你的個人追蹤檔（記錄進度）
         │
         ▼
-check_benefits.ps1 / .sh      # Reads tracker, shows pending items
+check_benefits.ps1 / .sh      ← 讀取追蹤檔，顯示待辦項目
         │
         ▼
-reminder.log                   # Append-only log of all reminders
+reminder.log                   ← 提醒紀錄（持續累加）
         +
-Desktop notification           # Windows toast / macOS / Linux notify
+桌面通知                        ← Windows 氣泡 / macOS / Linux
 ```
 
-### Tracker Status Values
+### 狀態值說明
 
-| Status | Meaning |
-|--------|---------|
-| `pending` | Not yet applied |
-| `done` | Successfully claimed (set `done_date`) |
-| `skipped` | Intentionally skipped |
-| `expired` | Was claimed, needs renewal |
+| 狀態 | 說明 |
+|------|------|
+| `pending` | 尚未申請 |
+| `done` | 已成功領取（請填入 `done_date`） |
+| `skipped` | 刻意跳過（不需要） |
+| `expired` | 已過期，需要續約 |
 
-## Application Priority
+## 建議申請順序
 
-### Week 1: Foundation (No Pack Needed)
-1. **GitHub Student Pack** — gateway to 12+ services
-2. **JetBrains** — all IDEs free, instant approval
-3. **Azure** — $100 credits, no credit card
-4. **Figma Education** — Professional plan, 2 years
-5. **Notion Plus** — immediate productivity boost
+### 第 1 週：基礎建設（不需要 Pack）
 
-### Week 2: After Pack Approval
-6. **GitHub Copilot** — auto-enabled
-7. **DigitalOcean** — $200 credits
-8. **Frontend Masters** — 6 months
-9. **1Password** — 1 year
-10. **MongoDB Atlas** — $50 credits
+| 優先順序 | 服務 | 價值 | 說明 |
+|---------|------|------|------|
+| 1 | GitHub Student Pack | 門票 | 申請後可解鎖 12+ 項服務 |
+| 2 | JetBrains 全家桶 | ~$250/年 | `.edu.tw` 信箱直接申請，秒過 |
+| 3 | Microsoft Azure | $100 | 不需信用卡 |
+| 4 | Figma Education | ~$144/年 x 2年 | 設計相關必備 |
+| 5 | Notion Plus | ~$96/年 | 生產力即刻提升 |
 
-### Week 3+: Everything Else
-- AWS Educate, Google Cloud, Oracle Free Tier
-- Coursera Financial Aid, Kaggle, NVIDIA DLI
-- Spotify, Apple Music, YouTube Premium student discounts
+### 第 2 週：Pack 審核通過後
 
-## Requirements
+| 優先順序 | 服務 | 價值 |
+|---------|------|------|
+| 6 | GitHub Copilot | ~$120/年（自動啟用） |
+| 7 | DigitalOcean | $200 額度 |
+| 8 | Frontend Masters | 6 個月（~$234） |
+| 9 | 1Password | 1 年（~$36） |
+| 10 | MongoDB Atlas | $50 額度 |
 
-- `.edu.tw` email address (active enrollment)
-- **Windows script:** PowerShell 5.1+ (built-in on Windows 10/11)
-- **macOS/Linux script:** bash + [jq](https://jqlang.github.io/jq/) (`brew install jq` / `apt install jq`)
+### 第 3 週之後：其餘項目
 
-## File Structure
+- 雲端額度：AWS Educate、Google Cloud、Oracle Free Tier
+- 學習平台：Coursera 財務補助、Kaggle、NVIDIA DLI
+- 影音折扣：Spotify、Apple Music、YouTube Premium 學生方案
+
+## 台灣學生申請小提醒
+
+- **`.edu.tw` 信箱**是申請大部分服務的關鍵，請確認信箱仍然有效
+- **GitHub Student Pack** 用 `.edu.tw` 通常很快通過，如果被拒絕，試試上傳更清晰的學生證照片
+- **SheerID 驗證**（Spotify、Apple Music 等）支援大部分台灣大學
+- **Coursera 財務補助**台灣學生申請通過率很高，值得嘗試
+- **Microsoft 365** 幾乎所有台灣大學都有提供，可向學校資訊處詢問
+- **Cursor Pro** 台灣不在官方支援名單中，但可嘗試手動驗證
+
+## 系統需求
+
+- 有效的 `.edu.tw` 電子信箱（在學中）
+- **Windows 腳本**：PowerShell 5.1+（Windows 10/11 內建）
+- **macOS/Linux 腳本**：bash + [jq](https://jqlang.github.io/jq/)
+  - macOS：`brew install jq`
+  - Ubuntu/Debian：`sudo apt install jq`
+
+## 檔案結構
 
 ```
 taiwan-student-benefits/
-├── SKILL.md                          # Claude Code skill definition
-├── README.md                         # This file
-├── tracker_template.json             # Template with all 37 benefits
+├── SKILL.md                          # Claude Code skill 定義
+├── README.md                         # 正體中文說明（本檔案）
+├── README.en.md                      # English README
+├── tracker_template.json             # 37 項福利追蹤模板
 ├── references/
-│   └── benefits-catalog.md           # Full catalog with URLs and notes
+│   └── benefits-catalog.md           # 完整福利目錄（含網址與注意事項）
 └── scripts/
-    ├── check_benefits.ps1            # Windows reminder script
-    ├── check_benefits.sh             # macOS/Linux reminder script
-    ├── setup_schedule.ps1            # Windows Task Scheduler setup
-    └── setup_schedule_macos.sh       # macOS launchd setup
+    ├── check_benefits.ps1            # Windows 提醒腳本
+    ├── check_benefits.sh             # macOS/Linux 提醒腳本
+    ├── setup_schedule.ps1            # Windows 排程設定
+    └── setup_schedule_macos.sh       # macOS 排程設定
 ```
 
-## Contributing
+## 貢獻
 
-Found a new student benefit? Benefit URL changed? PRs welcome!
+發現新的學生福利？網址有變更？歡迎發 PR！
 
-To add a new benefit:
-1. Add entry to `tracker_template.json`
-2. Add entry to `references/benefits-catalog.md`
-3. Submit a PR
+新增福利的步驟：
+1. 在 `tracker_template.json` 加入新項目
+2. 在 `references/benefits-catalog.md` 加入說明
+3. 提交 Pull Request
 
-## License
+## 授權
 
 MIT
 
-## Credits
+## 參考資料
 
-- Benefits catalog based on [Taiwan Student Free Subscriptions Guide 2025-2026](https://claude-world.com/zh-tw/articles/taiwan-student-free-subscriptions-guide-2025-2026/)
-- Built with [Claude Code](https://claude.ai/claude-code)
+- 福利清單參考自 [2025-2026 台灣學生免費訂閱指南](https://claude-world.com/zh-tw/articles/taiwan-student-free-subscriptions-guide-2025-2026/)
+- 使用 [Claude Code](https://claude.ai/claude-code) 建立
