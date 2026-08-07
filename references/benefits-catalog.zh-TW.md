@@ -213,7 +213,7 @@ Pack 是所有福利的入口。請最優先申請。
 
 | 服務 | 綁定方式 | 注意事項 |
 |------|---------|---------|
-| GitHub Copilot | 自動在你的 GitHub 帳號啟用 | — |
+| GitHub Copilot | 自動在你的 GitHub 帳號啟用 | 給的是 **Copilot Pro**：17 種模型（OpenAI / Anthropic / Google / xAI / Moonshot / Microsoft），每月 1,500 AI credits **共用**。Claude 天花板是 Sonnet 5，Opus 系列與 Fable 5 需 Pro+。詳見 README |
 | GitHub Pro | 自動在你的 GitHub 帳號啟用 | — |
 | DigitalOcean | 註冊時連結 GitHub 帳號 | 需信用卡 |
 | Heroku | 透過 GitHub Education 入口兌換 | — |
