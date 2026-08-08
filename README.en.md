@@ -333,14 +333,27 @@ Your document **must contain all three** of these:
 | "Copilot CLI is Codex CLI" | Two different things. Copilot CLI is GitHub's (command `copilot`); Codex CLI is OpenAI's (command `codex`). `GPT-5.3-Codex` is merely a **model name** you can select inside Copilot |
 | "You need a separate GitHub account to apply with `.edu.tw`" | You don't. Add the `.edu.tw` address as a secondary email on your existing account and verify with it — all your repos, stars and contribution history stay intact |
 
-**What your billing page looks like once the student plan is active** (use this to confirm it actually took effect):
-
-| Subscription | Display |
-|--------------|---------|
-| GitHub Pro | ~~$4.00~~ **$0.00**/month (`$4.00 off · 2 years remaining`) |
-| Copilot Pro | Lists at $10.00/month, but `Next payment due` shows `–` (not charged) |
+**How to confirm the student plan actually took effect** (there's an easy trap here):
 
 Verification status lives at `github.com/settings/education/benefits`, showing `Verified (benefits available) on <date>` plus an expiry date (typically 2 years out).
+
+But **passing verification does not mean every item automatically becomes free**. On the Subscriptions
+cards at `github.com/settings/billing`, anything actually discounted carries a green `$X off` badge:
+
+| Subscription | Display | Reading |
+|--------------|---------|---------|
+| GitHub Pro | ~~$4.00~~ **$0.00**/month (`$4.00 off · 2 years remaining`) | ✅ Student discount applied |
+| Copilot Pro | $10.00/month, **no off badge at all** | ❌ Still being paid for |
+
+> ⚠️ **Don't use `Next payment due` to decide whether you're being charged.** That field can show `–`
+> while the card is still billed every month — this project's author got it wrong exactly that way.
+> The only reliable source is the actual charge log at `github.com/account/billing/history`.
+>
+> If you were already paying for Copilot Pro **before** becoming a student, the student benefit
+> **will not take over** that subscription: GitHub Pro drops to $0 after verification, but the
+> $10/month for Copilot Pro keeps being charged. `github.com/github-copilot/signup` will detect the
+> existing subscription and redirect straight back to settings instead of offering you the free plan.
+> **You must cancel the paid subscription first, then claim it again as a student.**
 
 #### The 17 Models Copilot Pro Can Actually Use
 

@@ -332,14 +332,26 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 | 「Copilot CLI 就是 Codex CLI」 | 兩個不同東西。Copilot CLI 是 GitHub 的（指令 `copilot`），Codex CLI 是 OpenAI 的（指令 `codex`）。`GPT-5.3-Codex` 只是可在 Copilot 裡選用的**模型名稱** |
 | 「要另開 GitHub 帳號才能用 .edu.tw 申請」 | 不用。把 `.edu.tw` 加成現有帳號的次要信箱去驗證即可，原帳號的 repo / star / 貢獻紀錄全部保留 |
 
-**學生方案生效後 billing 頁長這樣**（可用來確認有沒有真的生效）：
-
-| 訂閱 | 顯示 |
-|------|------|
-| GitHub Pro | ~~$4.00~~ **$0.00**/月（`$4.00 off · 2 years remaining`） |
-| Copilot Pro | 標價 $10.00/月，但 `Next payment due` 為 `–`（不扣款） |
+**怎麼確認學生方案真的生效**（這裡有個很容易踩的坑）：
 
 驗證狀態在 `github.com/settings/education/benefits`，會顯示 `Verified (benefits available) on <日期>` 與到期日（通常給 2 年）。
+
+但**通過驗證不等於每一項都自動變免費**。在 `github.com/settings/billing` 的 Subscriptions 卡片上，
+真正被折抵的項目會有綠色的 `$X off` 標記：
+
+| 訂閱 | 顯示 | 判讀 |
+|------|------|------|
+| GitHub Pro | ~~$4.00~~ **$0.00**/月（`$4.00 off · 2 years remaining`） | ✅ 學生折扣已套用 |
+| Copilot Pro | $10.00/月，**沒有任何 off 標記** | ❌ 仍在自費 |
+
+> ⚠️ **不要用 `Next payment due` 判斷有沒有在扣款。** 這個欄位可能顯示 `–`，
+> 但實際每月照扣——本專案作者就這樣誤判過。唯一可信的是
+> `github.com/account/billing/history` 的實際扣款紀錄。
+>
+> 若你在成為學生**之前**就已經自費訂閱 Copilot Pro，學生福利**不會自動接管**它：
+> 通過驗證後 GitHub Pro 會變 $0，但 Copilot Pro 那 $10/月仍會繼續扣。
+> 此時 `github.com/github-copilot/signup` 會因為偵測到既有訂閱而直接跳轉回設定頁，
+> 不會給你免費方案。**必須先取消自費訂閱，再重新以學生身分領取。**
 
 #### Copilot Pro 實際可用的 17 個模型
 
