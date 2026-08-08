@@ -471,10 +471,58 @@ taiwan-student-benefits/
 
 Found a new student benefit? Benefit URL changed? PRs welcome!
 
-To add a new benefit:
+### Files That Must Be Changed in Pairs
+
+This project keeps **two bilingual file pairs**. Always update both halves, or the two versions
+drift apart over time (this has already happened once: the English README opened with "50+" while
+its own table totalled "37+", `Application Priority` was a table in Chinese but a plain list in
+English, and `File Structure` was missing half the files).
+
+| Chinese | English | Content |
+|---------|---------|---------|
+| `README.md` | `README.en.md` | Main documentation |
+| `references/benefits-catalog.zh-TW.md` | `references/benefits-catalog.md` | Full benefits catalog |
+
+`tracker_template.json` is the **single source of truth** (no bilingual counterpart) — every new benefit must be registered there.
+
+### Adding a New Benefit
+
 1. Add an entry to `tracker_template.json`
-2. Add an entry to both `references/benefits-catalog.md` (English) and `references/benefits-catalog.zh-TW.md` (Chinese)
-3. Submit a Pull Request
+2. Add a row to the matching category in `README.md` under 帳號類型速查表, **and** the
+   corresponding English row in `README.en.md` under `Account Type Quick Reference`
+3. Add a row to both `references/benefits-catalog.zh-TW.md` and `references/benefits-catalog.md`
+4. If the total benefit count changed, update the number in both READMEs' intro line and the
+   `What's Included` table total
+5. Run the parity check below to confirm nothing was missed
+6. Submit a Pull Request
+
+### Parity Check Before Opening a PR
+
+Heading count, table row count and external link count should match exactly across both READMEs:
+
+```bash
+printf "headings  zh:%s en:%s\ntable rows zh:%s en:%s\nlinks     zh:%s en:%s\n" \
+  "$(grep -c '^#\{2,4\} ' README.md)"            "$(grep -c '^#\{2,4\} ' README.en.md)" \
+  "$(grep -c '^|' README.md)"                    "$(grep -c '^|' README.en.md)" \
+  "$(grep -o 'https\?://[^)]*' README.md | sort -u | wc -l)" \
+  "$(grep -o 'https\?://[^)]*' README.en.md | sort -u | wc -l)"
+```
+
+Both numbers on all three lines must be equal. If the links don't line up, find the difference with:
+
+```bash
+diff <(grep -o 'https\?://[^)]*' README.md | sort -u) \
+     <(grep -o 'https\?://[^)]*' README.en.md | sort -u)
+```
+
+> Two differences are **intentional**: `microsoft.com/zh-tw/...` and `oracle.com/tw/...` have their
+> locale path removed in the English version. Anything else is a missed edit.
+
+### Line Endings
+
+`.gitattributes` pins every file to LF (except `*.ps1`, which stays CRLF).
+Windows users don't need to change `core.autocrlf` — if `git status` shows whole files as modified,
+run `git add --renormalize .`.
 
 ## License
 

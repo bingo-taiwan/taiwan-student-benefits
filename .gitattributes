@@ -1,0 +1,7 @@
+# 統一換行格式，避免 Windows / macOS / Linux 之間 checkout 出現整檔差異。
+# 沒有這份設定時，Windows 的 core.autocrlf 會把工作區轉成 CRLF；
+# 若在該狀態下提交，scripts/*.sh 到 Linux 會噴 `bad interpreter: /bin/bash^M`。
+* text=auto eol=lf
+
+# PowerShell 腳本維持 CRLF，符合 Windows 編輯器慣例。
+*.ps1 text eol=crlf

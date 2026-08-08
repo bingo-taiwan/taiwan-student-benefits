@@ -468,10 +468,56 @@ taiwan-student-benefits/
 
 發現新的學生福利？網址有變更？歡迎發 PR！
 
-新增福利的步驟：
+### 必須成對修改的檔案
+
+本專案有**四組雙語檔案**，改動時務必成對更新，否則兩版會逐漸脫節
+（曾經發生過：英文版開頭寫 50+ 項但表格總計是 37+、`建議申請順序` 中文是表格英文是列表、
+`檔案結構` 漏列一半檔案）。
+
+| 中文 | 英文 | 內容 |
+|------|------|------|
+| `README.md` | `README.en.md` | 主說明文件 |
+| `references/benefits-catalog.zh-TW.md` | `references/benefits-catalog.md` | 完整福利目錄 |
+
+`tracker_template.json` 是**單一來源**（無雙語版本），新增福利時必須同步在此登錄。
+
+### 新增福利的步驟
+
 1. 在 `tracker_template.json` 加入新項目
-2. 在 `references/benefits-catalog.md`（英文）和 `references/benefits-catalog.zh-TW.md`（中文）加入說明
-3. 提交 Pull Request
+2. 在 `README.md` 的「帳號類型速查表」對應分類加一列，**同時**在 `README.en.md` 的
+   `Account Type Quick Reference` 加對應的英文列
+3. 在 `references/benefits-catalog.zh-TW.md` 和 `references/benefits-catalog.md` 各加一列
+4. 若改動了福利總數，記得更新兩份 README 開頭的數字與「包含哪些福利」表格的合計
+5. 執行下方對照指令確認沒漏
+6. 提交 Pull Request
+
+### 送 PR 前的對照指令
+
+兩份 README 的章節數、表格列數、外部連結數應完全一致：
+
+```bash
+printf "章節  zh:%s en:%s\n表格  zh:%s en:%s\n連結  zh:%s en:%s\n" \
+  "$(grep -c '^#\{2,4\} ' README.md)"            "$(grep -c '^#\{2,4\} ' README.en.md)" \
+  "$(grep -c '^|' README.md)"                    "$(grep -c '^|' README.en.md)" \
+  "$(grep -o 'https\?://[^)]*' README.md | sort -u | wc -l)" \
+  "$(grep -o 'https\?://[^)]*' README.en.md | sort -u | wc -l)"
+```
+
+三行的兩個數字都相同才算同步。連結若對不上，用這行找出差在哪：
+
+```bash
+diff <(grep -o 'https\?://[^)]*' README.md | sort -u) \
+     <(grep -o 'https\?://[^)]*' README.en.md | sort -u)
+```
+
+> 預期會有兩處**刻意**的差異：`microsoft.com/zh-tw/...` 與 `oracle.com/tw/...`
+> 在英文版移除了語系路徑。除此之外的差異都是漏改。
+
+### 換行格式
+
+`.gitattributes` 已將所有檔案鎖為 LF（`*.ps1` 除外，維持 CRLF）。
+Windows 使用者不需要調整 `core.autocrlf`——若 `git status` 出現整檔變更，
+執行 `git add --renormalize .` 即可。
 
 ## 授權
 
