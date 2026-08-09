@@ -213,7 +213,7 @@ These services authenticate through your GitHub account. Once your GitHub Studen
 
 | Service | Binding Method | Caveat |
 |---------|---------------|--------|
-| GitHub Copilot | Auto-enabled on your GitHub account | You get **Copilot Pro**: 17 models (OpenAI / Anthropic / Google / xAI / Moonshot / Microsoft), 1,500 AI credits/month **shared across all of them**. Claude tops out at Sonnet 5; Opus models and Fable 5 require Pro+. See README |
+| GitHub Copilot | Auto-enabled on your GitHub account | You get **Copilot Student** (**not** Copilot Pro): unlimited code completions, but **auto model selection only — you cannot pick a model**, 8 models available, and an AI credit allowance GitHub does not publish. By comparison, paid Copilot Pro ($10/mo) lets you pick from 17 models with 1,500 credits. See README |
 | GitHub Pro | Auto-enabled on your GitHub account | — |
 | DigitalOcean | Link GitHub account on signup | Credit card required |
 | Heroku | Claim via GitHub Education portal | — |

@@ -325,10 +325,11 @@ Your document **must contain all three** of these:
 
 ### GitHub Copilot Student Plan (tested 2026-08-08)
 
-**Three common misconceptions, cleared up:**
+**Four common misconceptions, cleared up:**
 
 | Misconception | Reality |
 |---------------|---------|
+| **"The student benefit is a free Copilot Pro"** | **The one most people get wrong.** Students receive **Copilot Student**, a **separate and weaker plan tier** — not Copilot Pro. See the next section |
 | "Copilot is an OpenAI model" | Copilot is a **product**, not a model. It can run models from six vendors: OpenAI, Anthropic, Google, xAI, Moonshot and Microsoft |
 | "Copilot CLI is Codex CLI" | Two different things. Copilot CLI is GitHub's (command `copilot`); Codex CLI is OpenAI's (command `codex`). `GPT-5.3-Codex` is merely a **model name** you can select inside Copilot |
 | "You need a separate GitHub account to apply with `.edu.tw`" | You don't. Add the `.edu.tw` address as a secondary email on your existing account and verify with it — all your repos, stars and contribution history stay intact |
@@ -355,11 +356,64 @@ cards at `github.com/settings/billing`, anything actually discounted carries a g
 > existing subscription and redirect straight back to settings instead of offering you the free plan.
 > **You must cancel the paid subscription first, then claim it again as a student.**
 
-#### The 17 Models Copilot Pro Can Actually Use
+#### There Are Five Individual Tiers — Students Get Copilot Student
+
+The official docs ([individual plans and benefits](https://docs.github.com/en/copilot/concepts/billing/individual-plans)) list these individual plans:
+
+> Copilot Free / **Copilot Student** / Copilot Pro / Copilot Pro+ / Copilot Max
+
+**Copilot Student is not "Pro for free" — it's its own tier, sitting between Free and Pro.** Official wording:
+
+> Includes unlimited code completions and an allowance of GitHub AI Credits, plus
+> **limited chat and agent usage with models available through auto model selection only**.
+
+| | Copilot Free | **Copilot Student** | Copilot Pro |
+|---|---|---|---|
+| Price | $0 | **$0** (student verification required) | **$10 USD** |
+| Code completions | 2,000/month | **Unlimited** | Unlimited |
+| Model selection | ❌ auto only | ❌ **auto only — you cannot pick a model** | ✅ **17 to choose from** |
+| Chat / agent usage | Limited | Limited | Bounded by AI credits |
+| Shared AI credit pool | Not published | ⚠️ **Not published by GitHub** | **1,500** |
+| Premium models | ❌ | ❌ | ❌ (needs Pro+) |
+
+> ⚠️ **GitHub's own "AI Credits allowance by plan" table lists only Pro 1,500 / Pro+ 7,000 / Max 20,000 —
+> Copilot Free and Copilot Student aren't rows in it at all**, just a sentence saying "both have an
+> allowance of AI credits". As of 2026-08-09, three separate official billing pages give no figure for Student.
+>
+> **What this means in practice**: if you were already paying for Copilot Pro, switching to the student
+> plan is **not "the same thing for free" — it's a downgrade**. You lose model selection (`/model` and
+> `--model` stop working) and the defined 1,500-credit allowance. Cancel if you only use IDE completions;
+> keep paying if you switch models in the CLI, because that's exactly what the $10 buys.
+
+#### Models Available per Tier: Free 3 / Student 8 / Pro 17
 
 > Note: **neither the official docs nor the github.com web model picker is accurate**. The docs omit models
 > (the Kimi family, for instance), while the web picker is missing the entire Gemini lineup and Grok 4.5 —
-> all of which do work in Copilot CLI.
+> all of which do work in Copilot CLI at the Pro tier.
+> The tier mapping below comes from each model's `billing.restricted_to` field in the Copilot API; see the
+> section further down for how to pull it.
+
+| Model | Free | Student (`edu`) | Pro |
+|-------|:----:|:---------------:|:---:|
+| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
+| `gpt-5-mini` | ✅ | ✅ | ✅ |
+| `mai-code-1-flash` | ✅ | ✅ | ✅ |
+| `gpt-5.3-codex` | — | ✅ | ✅ |
+| `gpt-5.4-mini` | — | ✅ | ✅ |
+| `kimi-k2.7-code` | — | ✅ | ✅ |
+| `kimi-k3` | — | ✅ | ✅ |
+| `gemini-3.1-pro-preview` | — | ✅ | ✅ |
+| `claude-sonnet-5` | — | ❌ | ✅ |
+| `claude-sonnet-4.6` / `4.5` | — | ❌ | ✅ |
+| `grok-4.5` | — | ❌ | ✅ |
+| `gemini-3.6-flash` / `3.5-flash` | — | ❌ | ✅ |
+| `gpt-5.6-luna` / `gpt-5.6-terra` | — | ❌ | ✅ |
+| `gpt-5.4` | — | ❌ | ✅ |
+| **Total** | **3** | **8** | **17** |
+
+**The Claude line is where the gap is widest**: Student stops at Haiku 4.5, every Sonnet needs Pro, and Opus plus Fable 5 need Pro+.
+
+Everything below — unit prices and credit math — is measured at the **Copilot Pro** tier.
 
 | Model | input | output | cache read |
 |-------|------:|-------:|-----------:|
@@ -388,6 +442,8 @@ cards at `github.com/settings/billing`, anything actually discounted carries a g
 **On the Anthropic side the student plan tops out at Sonnet 5 — every Opus model and Fable 5 requires a paid upgrade.**
 
 #### AI Credits Are a Shared Pool, Not Per-Model Quotas
+
+> All figures below are for **Copilot Pro**. Copilot Student's allowance is unpublished, so the same math can't be applied to it.
 
 All models **share** the same 1,500 credits per month. What differs is the burn rate — up to a **15× spread**.
 

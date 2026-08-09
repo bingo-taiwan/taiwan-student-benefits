@@ -324,10 +324,11 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 
 ### GitHub Copilot 學生方案實測（2026-08-08）
 
-**先釐清三個常見誤解**：
+**先釐清四個常見誤解**：
 
 | 誤解 | 事實 |
 |------|------|
+| **「學生方案 = 免費的 Copilot Pro」** | **最多人搞錯的一個。** 學生拿到的是 **Copilot Student**，這是一個**獨立且較弱的方案等級**，不是 Copilot Pro。詳見下一節 |
 | 「Copilot 是 OpenAI 的模型」 | Copilot 是**產品**不是模型。背後可選 OpenAI、Anthropic、Google、xAI、Moonshot、Microsoft 六家 |
 | 「Copilot CLI 就是 Codex CLI」 | 兩個不同東西。Copilot CLI 是 GitHub 的（指令 `copilot`），Codex CLI 是 OpenAI 的（指令 `codex`）。`GPT-5.3-Codex` 只是可在 Copilot 裡選用的**模型名稱** |
 | 「要另開 GitHub 帳號才能用 .edu.tw 申請」 | 不用。把 `.edu.tw` 加成現有帳號的次要信箱去驗證即可，原帳號的 repo / star / 貢獻紀錄全部保留 |
@@ -353,10 +354,61 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 > 此時 `github.com/github-copilot/signup` 會因為偵測到既有訂閱而直接跳轉回設定頁，
 > 不會給你免費方案。**必須先取消自費訂閱，再重新以學生身分領取。**
 
-#### Copilot Pro 實際可用的 17 個模型
+#### 個人方案有五個等級，學生拿到的是 Copilot Student
+
+官方文件（[個人方案與權益](https://docs.github.com/en/copilot/concepts/billing/individual-plans)）列出的個人方案是：
+
+> Copilot Free ／ **Copilot Student** ／ Copilot Pro ／ Copilot Pro+ ／ Copilot Max
+
+**Copilot Student 不是「免費版的 Pro」，而是介於 Free 與 Pro 之間的獨立等級。** 官方原文：
+
+> Includes unlimited code completions and an allowance of GitHub AI Credits, plus
+> **limited chat and agent usage with models available through auto model selection only**.
+
+| | Copilot Free | **Copilot Student** | Copilot Pro |
+|---|---|---|---|
+| 月費 | $0 | **$0**（需通過學生驗證） | **$10 USD** |
+| 程式碼自動補完 | 2,000 次/月 | **無限** | 無限 |
+| 模型選擇 | ❌ 只能 auto | ❌ **只能 auto，不能指定模型** | ✅ **17 個任選** |
+| Chat / Agent 用量 | Limited | Limited | 依 AI credits 額度 |
+| AI credits 共用池 | 未公布 | ⚠️ **官方未公布數字** | **1,500** |
+| premium 模型 | ❌ | ❌ | ❌（需 Pro+） |
+
+> ⚠️ **官方那張「AI Credits allowance by plan」表格只列 Pro 1,500 / Pro+ 7,000 / Max 20,000，
+> Copilot Free 與 Copilot Student 根本不在表上**，只用一句話帶過「both have an allowance of AI credits」。
+> 截至 2026-08-09 查遍官方三個計費頁面都查不到 Student 的確切點數。
+>
+> **實務意義**：如果你原本就自費訂閱 Copilot Pro，取消改用學生版**不是「一樣的東西變免費」，而是降級**——
+> 你會失去模型選擇權（`/model`、`--model` 都不能用）與 1,500 credits 的明確額度。
+> 只用 IDE 自動補完的人取消很划算；會在 CLI 裡切模型的人，那 $10 買的正是這個功能。
+
+#### 各方案實際可用的模型：Free 3 / Student 8 / Pro 17
 
 > 注意：**官方文件與 github.com 網頁版選單都不準**。文件會漏列（如 Kimi 系列），
-> 網頁版選單則少了 Gemini 全系列和 Grok 4.5——但這些在 Copilot CLI 裡可以用。
+> 網頁版選單則少了 Gemini 全系列和 Grok 4.5——但這些在 Copilot CLI 裡（Pro 等級）可以用。
+> 下表的方案歸屬取自 Copilot API 每個模型的 `billing.restricted_to` 欄位，撈法見後面小節。
+
+| 模型 | Free | Student（`edu`） | Pro |
+|------|:----:|:----------------:|:---:|
+| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
+| `gpt-5-mini` | ✅ | ✅ | ✅ |
+| `mai-code-1-flash` | ✅ | ✅ | ✅ |
+| `gpt-5.3-codex` | — | ✅ | ✅ |
+| `gpt-5.4-mini` | — | ✅ | ✅ |
+| `kimi-k2.7-code` | — | ✅ | ✅ |
+| `kimi-k3` | — | ✅ | ✅ |
+| `gemini-3.1-pro-preview` | — | ✅ | ✅ |
+| `claude-sonnet-5` | — | ❌ | ✅ |
+| `claude-sonnet-4.6` / `4.5` | — | ❌ | ✅ |
+| `grok-4.5` | — | ❌ | ✅ |
+| `gemini-3.6-flash` / `3.5-flash` | — | ❌ | ✅ |
+| `gpt-5.6-luna` / `gpt-5.6-terra` | — | ❌ | ✅ |
+| `gpt-5.4` | — | ❌ | ✅ |
+| **合計** | **3** | **8** | **17** |
+
+**Claude 這條線差最多**：Student 只到 Haiku 4.5，Sonnet 全系列要 Pro，Opus 與 Fable 5 要 Pro+。
+
+以下的單價與 credits 換算**都是 Copilot Pro 等級**的實測數字。
 
 | 模型 | input | output | cache 讀 |
 |------|------:|-------:|--------:|
@@ -385,6 +437,8 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 **Anthropic 這邊學生方案的天花板是 Sonnet 5，所有 Opus 與 Fable 5 都要付費升級。**
 
 #### AI credits 是共用池，不是每個模型各有額度
+
+> 以下數字全是 **Copilot Pro** 等級的。Copilot Student 的額度官方未公布，無法比照計算。
 
 每月 1,500 credits 由所有模型**共用**，差別在扣率——最貴與最便宜差 **15 倍**。
 
