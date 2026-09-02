@@ -158,7 +158,7 @@ Desktop notification           # Windows toast / macOS / Linux notify
 
 | Service | Type | .edu.tw | After Graduation | Use Cases |
 |---------|------|---------|------------------|-----------|
-| [GitHub Copilot](https://github.com/settings/copilot) | C | No | Keep | AI code completion and chat, usable in your IDE or terminal (`copilot` CLI). Switch between 17 models including OpenAI GPT-5.x, Claude Sonnet 5, Gemini 3.x, Grok 4.5 ([tested list and billing](#github-copilot-student-plan-tested-2026-08-08)) |
+| [GitHub Copilot](https://github.com/settings/copilot) | C | No | Keep | AI code completion and chat, usable in your IDE or terminal (`copilot` CLI). Switch between 17 models including OpenAI GPT-5.x, Claude Sonnet 5, Gemini 3.x, Kimi K3 ([tested list and billing](#github-copilot-student-plan-tested-2026-08-08)) |
 | [GitHub Pro](https://education.github.com/pack) | C | No | Keep | Unlimited private repos, 3,000 Actions minutes, 180 hours of Codespaces cloud dev |
 | [GitKraken Pro](https://www.gitkraken.com/github-student-developer-pack) | C | No | Keep | Graphical Git client — visual version control, great if you're not fluent in Git commands |
 | [Educative](https://education.github.com/pack#educative) | C | No | Keep | 70+ interactive coding courses, code right in the browser, good for interview prep |
@@ -330,7 +330,7 @@ Your document **must contain all three** of these:
 | Misconception | Reality |
 |---------------|---------|
 | **"The student benefit is a free Copilot Pro"** | **The one most people get wrong.** Students receive **Copilot Student**, a **separate and weaker plan tier** — not Copilot Pro. See the next section |
-| "Copilot is an OpenAI model" | Copilot is a **product**, not a model. It can run models from six vendors: OpenAI, Anthropic, Google, xAI, Moonshot and Microsoft |
+| "Copilot is an OpenAI model" | Copilot is a **product**, not a model. It can run models from five vendors: OpenAI, Anthropic, Google, Moonshot and Microsoft (xAI's Grok was delisted in 2026-09) |
 | "Copilot CLI is Codex CLI" | Two different things. Copilot CLI is GitHub's (command `copilot`); Codex CLI is OpenAI's (command `codex`). `GPT-5.3-Codex` is merely a **model name** you can select inside Copilot |
 | "You need a separate GitHub account to apply with `.edu.tw`" | You don't. Add the `.edu.tw` address as a secondary email on your existing account and verify with it — all your repos, stars and contribution history stay intact |
 
@@ -385,61 +385,65 @@ The official docs ([individual plans and benefits](https://docs.github.com/en/co
 > `--model` stop working) and the defined 1,500-credit allowance. Cancel if you only use IDE completions;
 > keep paying if you switch models in the CLI, because that's exactly what the $10 buys.
 
-#### Models Available per Tier: Free 3 / Student 8 / Pro 17
+#### Models Available per Tier: Free 6 / Student 10 / Pro 17 (re-tested 2026-09-02)
 
-> Note: **neither the official docs nor the github.com web model picker is accurate**. The docs omit models
-> (the Kimi family, for instance), while the web picker is missing the entire Gemini lineup and Grok 4.5 —
-> all of which do work in Copilot CLI at the Pro tier.
-> The tier mapping below comes from each model's `billing.restricted_to` field in the Copilot API; see the
+> Note: **neither the official docs nor the github.com web model picker is accurate**, and the catalog moves fast —
+> compared with the first test on 2026-08-08, `grok-4.5`, `claude-sonnet-4.5` and `gemini-3.1-pro-preview` were delisted,
+> `gpt-5.6-luna` opened up to Free/Student, **Student lost every Gemini model**, and `gpt-5.4-nano` (all prices 0),
+> `gemini-3.7-flash` and MAI-Code 1.1 were added.
+> The tier mapping below comes from each model's `billing.restricted_to` field in the Copilot API
+> (**a model without that field = available on every tier**, e.g. `claude-haiku-4.5`); see the
 > section further down for how to pull it.
 
 | Model | Free | Student (`edu`) | Pro |
 |-------|:----:|:---------------:|:---:|
-| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
+| `gpt-5.4-nano` | ✅ | ✅ | ✅ |
+| `gpt-5.6-luna` | ✅ | ✅ | ✅ |
+| `mai-code-1.1-flash` | ✅ | ✅ | ✅ |
+| `mai-code-1-flash-picker` | ✅ | ✅ | ✅ |
 | `gpt-5-mini` | ✅ | ✅ | ✅ |
-| `mai-code-1-flash` | ✅ | ✅ | ✅ |
-| `gpt-5.3-codex` | — | ✅ | ✅ |
+| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
 | `gpt-5.4-mini` | — | ✅ | ✅ |
+| `gpt-5.3-codex` | — | ✅ | ✅ |
 | `kimi-k2.7-code` | — | ✅ | ✅ |
 | `kimi-k3` | — | ✅ | ✅ |
-| `gemini-3.1-pro-preview` | — | ✅ | ✅ |
 | `claude-sonnet-5` | — | ❌ | ✅ |
-| `claude-sonnet-4.6` / `4.5` | — | ❌ | ✅ |
-| `grok-4.5` | — | ❌ | ✅ |
-| `gemini-3.6-flash` / `3.5-flash` | — | ❌ | ✅ |
-| `gpt-5.6-luna` / `gpt-5.6-terra` | — | ❌ | ✅ |
+| `claude-sonnet-4.6` | — | ❌ | ✅ |
+| `gemini-3.5-flash` / `3.6-flash` / `3.7-flash` | — | ❌ | ✅ |
+| `gpt-5.6-terra` | — | ❌ | ✅ |
 | `gpt-5.4` | — | ❌ | ✅ |
-| **Total** | **3** | **8** | **17** |
+| **Total** | **6** | **10** | **17** |
 
 **The Claude line is where the gap is widest**: Student stops at Haiku 4.5, every Sonnet needs Pro, and Opus plus Fable 5 need Pro+.
 
-Everything below — unit prices and credit math — is measured at the **Copilot Pro** tier.
+The unit prices below are from the **2026-09-02 API re-test** (the 17 Pro-tier models); compared with August, `gemini-3.6-flash` was cut to half price.
 
 | Model | input | output | cache read |
 |-------|------:|-------:|-----------:|
-| `gpt-5.6-luna` | **20** | 120 | 2 |
-| `gpt-5-mini` | 25 | 200 | 2 |
-| `gpt-5.4-mini` | 75 | 450 | 7 |
-| `mai-code-1-flash` | 75 | 450 | 7 |
+| `gpt-5.4-nano` | **0** | 0 | 0 |
+| `gpt-5.6-luna` | 20 | 120 | 2 |
+| `mai-code-1.1-flash` | 20 | 120 | 2 |
+| `gpt-5-mini` | 25 | 200 | 2.5 |
+| `gemini-3.6-flash` | 75 | 375 | 7.5 |
+| `gemini-3.7-flash` | 75 | 375 | 7.5 |
+| `gpt-5.4-mini` | 75 | 450 | 7.5 |
+| `mai-code-1-flash-picker` | 75 | 450 | 7.5 |
 | `kimi-k2.7-code` | 95 | 400 | 19 |
 | `claude-haiku-4.5` | 100 | 500 | 10 |
 | `gemini-3.5-flash` | 150 | 900 | 15 |
-| `gemini-3.6-flash` | 150 | 750 | 15 |
-| `gpt-5.3-codex` | 175 | 1400 | 17 |
+| `gpt-5.3-codex` | 175 | 1400 | 17.5 |
 | `claude-sonnet-5` | 200 | 1000 | 20 |
-| `gemini-3.1-pro-preview` | 200 | 1200 | 20 |
 | `gpt-5.6-terra` | 200 | 1200 | 20 |
-| `grok-4.5` | 200 | **600** | 50 |
 | `gpt-5.4` | 250 | 1500 | 25 |
 | `claude-sonnet-4.6` | 300 | 1500 | 30 |
 | `kimi-k3` | 300 | 1500 | 30 |
-| `claude-sonnet-4.5` | 300 | 1500 | 30 |
 
 (Units: AI credits per million tokens)
 
 **Locked behind Pro+ / Business / Enterprise / Max**: `claude-opus-5`, `claude-opus-4.8`, `claude-opus-4.8-fast`,
-`claude-opus-4.7`, `claude-opus-4.5`, `claude-fable-5`, `gpt-5.5`, `gpt-5.6-sol`.
-**On the Anthropic side the student plan tops out at Sonnet 5 — every Opus model and Fable 5 requires a paid upgrade.**
+`claude-opus-4.7`, `claude-fable-5`, `claude-fable-5.1`, `gpt-5.5`, `gpt-5.6-sol`
+(`claude-opus-4.5` was removed from the catalog entirely; the Fable line costs input 1000 / output 5000, the priciest in the catalog).
+**On the Anthropic side the student plan tops out at Haiku 4.5 — Sonnet needs Pro, and every Opus and Fable model needs Pro+.**
 
 #### AI Credits Are a Shared Pool, Not Per-Model Quotas
 
@@ -451,30 +455,31 @@ All models **share** the same 1,500 credits per month. What differs is the burn 
 credits = tokens × price ÷ 1,000,000     (input and output priced separately; cache reads get a discount)
 ```
 
-Verified empirically (Copilot CLI's opening system prompt is about 21k tokens):
+Verified empirically (measured 2026-08-08 at the prices **of that time**; `grok-4.5` has since been delisted and `gemini-3.6-flash` re-priced. Copilot CLI's opening system prompt is about 21k tokens):
 
 | Model | Measured | Recomputed from unit price |
 |-------|---------:|---------------------------|
-| `grok-4.5` | 4.42 | 21.7k×200 + 1.4k×50(cached) + 12×600 = 4.42 ✅ |
-| `gemini-3.6-flash` | 3.23 | 21.6k×150 ÷ 1M = 3.24 ✅ |
+| `grok-4.5` (delisted) | 4.42 | 21.7k×200 + 1.4k×50(cached) + 12×600 = 4.42 ✅ |
+| `gemini-3.6-flash` (then 150) | 3.23 | 21.6k×150 ÷ 1M = 3.24 ✅ |
 | `kimi-k3` | 6.32 | 21.0k×300 ÷ 1M = 6.30 ✅ |
 
-Translated into how many interactions you actually get per month:
+Translated into how many interactions you actually get per month (at 2026-09-02 prices):
 
 | Model | Per call | Fits in 1,500 credits |
 |-------|---------:|----------------------:|
-| `gpt-5.6-luna` | 0.42 | **~3,500 calls** |
+| `gpt-5.4-nano` | 0 | **no credits burned** |
+| `gpt-5.6-luna` | 0.42 | ~3,500 calls |
+| `gemini-3.6-flash` | 1.6 | ~930 calls |
 | `claude-haiku-4.5` | 2.1 | ~700 calls |
-| `gemini-3.6-flash` | 3.2 | ~470 calls |
 | `claude-sonnet-5` | 4.2 | ~350 calls |
-| `claude-sonnet-4.5` / `4.6` / `kimi-k3` | 6.3 | **~240 calls** |
+| `claude-sonnet-4.6` / `kimi-k3` | 6.3 | **~240 calls** |
 
 Expect fewer in practice: input grows as the conversation gets longer (the full context is resent every turn), and output costs 5–6× what input does.
 
 **Three ways to stretch your credits:**
-1. Use `gpt-5.6-luna` for routine work (15× cheaper than Sonnet); switch to `claude-sonnet-5` only for hard problems
+1. Use `gpt-5.6-luna` for routine work (10× cheaper than Sonnet 5); switch to `claude-sonnet-5` only for hard problems
 2. Cache reads cost 1/10 of normal input — staying in one session beats reopening a fresh one each time
-3. For long outputs use `grok-4.5` (output is only 600, cheapest in its tier), though its cache read of 50 makes it a poor fit for long conversations
+3. Throw low-stakes batch chores at `gpt-5.4-nano` — every price is 0, it burns no credits at all
 
 Running out doesn't cost you money: `Additional usage` defaults to `Not enabled` with a `$0` budget, so it simply stops until next month.
 
@@ -488,7 +493,7 @@ export GH_TOKEN=$(gh auth token)   # reuses gh's token, no separate copilot logi
 
 copilot --model bogus --log-level debug --log-dir ./cplog -p "hi" --allow-all-tools
 # In the log, search for 'fetched models from CAPI /models' — that line's "models" field
-# is the complete JSON (50 entries).
+# is the complete JSON (49 entries as of 2026-09-02).
 # Each entry's billing.restricted_to is the plan allowlist:
 #   free / edu / pro / pro_plus / individual_trial / business / enterprise / max
 # billing.token_prices.default holds the unit prices shown in the table above.

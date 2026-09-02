@@ -158,7 +158,7 @@ reminder.log                   ← 提醒紀錄（持續累加）
 
 | 服務 | 類型 | .edu.tw | 畢業後 | 用途與應用場景 |
 |------|------|---------|--------|--------------|
-| [GitHub Copilot](https://github.com/settings/copilot) | C | 否 | 可保留 | AI 程式碼補完與對話，可在 IDE / 終端機（`copilot` CLI）使用。模型可切 OpenAI GPT-5.x、Claude Sonnet 5、Gemini 3.x、Grok 4.5 等 17 種（[實測清單與計費](#github-copilot-學生方案實測2026-08-08)） |
+| [GitHub Copilot](https://github.com/settings/copilot) | C | 否 | 可保留 | AI 程式碼補完與對話，可在 IDE / 終端機（`copilot` CLI）使用。模型可切 OpenAI GPT-5.x、Claude Sonnet 5、Gemini 3.x、Kimi K3 等 17 種（[實測清單與計費](#github-copilot-學生方案實測2026-08-08)） |
 | [GitHub Pro](https://education.github.com/pack) | C | 否 | 可保留 | 無限私有 repo、3000 分鐘 Actions、180 小時 Codespaces 雲端開發 |
 | [GitKraken Pro](https://www.gitkraken.com/github-student-developer-pack) | C | 否 | 可保留 | Git 圖形化介面，視覺化管理版本控制，適合 Git 指令不熟的同學 |
 | [Educative](https://education.github.com/pack#educative) | C | 否 | 可保留 | 70+ 門互動式程式課程，瀏覽器直接寫程式，適合面試刷題 |
@@ -329,7 +329,7 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 | 誤解 | 事實 |
 |------|------|
 | **「學生方案 = 免費的 Copilot Pro」** | **最多人搞錯的一個。** 學生拿到的是 **Copilot Student**，這是一個**獨立且較弱的方案等級**，不是 Copilot Pro。詳見下一節 |
-| 「Copilot 是 OpenAI 的模型」 | Copilot 是**產品**不是模型。背後可選 OpenAI、Anthropic、Google、xAI、Moonshot、Microsoft 六家 |
+| 「Copilot 是 OpenAI 的模型」 | Copilot 是**產品**不是模型。背後可選 OpenAI、Anthropic、Google、Moonshot、Microsoft 五家（xAI 的 Grok 於 2026-09 已下架） |
 | 「Copilot CLI 就是 Codex CLI」 | 兩個不同東西。Copilot CLI 是 GitHub 的（指令 `copilot`），Codex CLI 是 OpenAI 的（指令 `codex`）。`GPT-5.3-Codex` 只是可在 Copilot 裡選用的**模型名稱** |
 | 「要另開 GitHub 帳號才能用 .edu.tw 申請」 | 不用。把 `.edu.tw` 加成現有帳號的次要信箱去驗證即可，原帳號的 repo / star / 貢獻紀錄全部保留 |
 
@@ -382,59 +382,63 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 > 你會失去模型選擇權（`/model`、`--model` 都不能用）與 1,500 credits 的明確額度。
 > 只用 IDE 自動補完的人取消很划算；會在 CLI 裡切模型的人，那 $10 買的正是這個功能。
 
-#### 各方案實際可用的模型：Free 3 / Student 8 / Pro 17
+#### 各方案實際可用的模型：Free 6 / Student 10 / Pro 17（2026-09-02 重測）
 
-> 注意：**官方文件與 github.com 網頁版選單都不準**。文件會漏列（如 Kimi 系列），
-> 網頁版選單則少了 Gemini 全系列和 Grok 4.5——但這些在 Copilot CLI 裡（Pro 等級）可以用。
-> 下表的方案歸屬取自 Copilot API 每個模型的 `billing.restricted_to` 欄位，撈法見後面小節。
+> 注意：**官方文件與 github.com 網頁版選單都不準**，且清單變動很快——與 2026-08-08 首測相比，
+> `grok-4.5`、`claude-sonnet-4.5`、`gemini-3.1-pro-preview` 已下架，`gpt-5.6-luna` 開放到 Free/Student，
+> **Student 失去了所有 Gemini**，另新增 `gpt-5.4-nano`（單價 0）、`gemini-3.7-flash`、MAI-Code 1.1。
+> 下表的方案歸屬取自 Copilot API 每個模型的 `billing.restricted_to` 欄位
+> （**沒有這個欄位的模型＝不限方案**，如 `claude-haiku-4.5`），撈法見後面小節。
 
 | 模型 | Free | Student（`edu`） | Pro |
 |------|:----:|:----------------:|:---:|
-| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
+| `gpt-5.4-nano` | ✅ | ✅ | ✅ |
+| `gpt-5.6-luna` | ✅ | ✅ | ✅ |
+| `mai-code-1.1-flash` | ✅ | ✅ | ✅ |
+| `mai-code-1-flash-picker` | ✅ | ✅ | ✅ |
 | `gpt-5-mini` | ✅ | ✅ | ✅ |
-| `mai-code-1-flash` | ✅ | ✅ | ✅ |
-| `gpt-5.3-codex` | — | ✅ | ✅ |
+| `claude-haiku-4.5` | ✅ | ✅ | ✅ |
 | `gpt-5.4-mini` | — | ✅ | ✅ |
+| `gpt-5.3-codex` | — | ✅ | ✅ |
 | `kimi-k2.7-code` | — | ✅ | ✅ |
 | `kimi-k3` | — | ✅ | ✅ |
-| `gemini-3.1-pro-preview` | — | ✅ | ✅ |
 | `claude-sonnet-5` | — | ❌ | ✅ |
-| `claude-sonnet-4.6` / `4.5` | — | ❌ | ✅ |
-| `grok-4.5` | — | ❌ | ✅ |
-| `gemini-3.6-flash` / `3.5-flash` | — | ❌ | ✅ |
-| `gpt-5.6-luna` / `gpt-5.6-terra` | — | ❌ | ✅ |
+| `claude-sonnet-4.6` | — | ❌ | ✅ |
+| `gemini-3.5-flash` / `3.6-flash` / `3.7-flash` | — | ❌ | ✅ |
+| `gpt-5.6-terra` | — | ❌ | ✅ |
 | `gpt-5.4` | — | ❌ | ✅ |
-| **合計** | **3** | **8** | **17** |
+| **合計** | **6** | **10** | **17** |
 
 **Claude 這條線差最多**：Student 只到 Haiku 4.5，Sonnet 全系列要 Pro，Opus 與 Fable 5 要 Pro+。
 
-以下的單價與 credits 換算**都是 Copilot Pro 等級**的實測數字。
+以下單價為 **2026-09-02 API 重測**（Pro 可用的 17 個模型）；與 8 月相比 `gemini-3.6-flash` 直接降半價。
 
 | 模型 | input | output | cache 讀 |
 |------|------:|-------:|--------:|
-| `gpt-5.6-luna` | **20** | 120 | 2 |
-| `gpt-5-mini` | 25 | 200 | 2 |
-| `gpt-5.4-mini` | 75 | 450 | 7 |
-| `mai-code-1-flash` | 75 | 450 | 7 |
+| `gpt-5.4-nano` | **0** | 0 | 0 |
+| `gpt-5.6-luna` | 20 | 120 | 2 |
+| `mai-code-1.1-flash` | 20 | 120 | 2 |
+| `gpt-5-mini` | 25 | 200 | 2.5 |
+| `gemini-3.6-flash` | 75 | 375 | 7.5 |
+| `gemini-3.7-flash` | 75 | 375 | 7.5 |
+| `gpt-5.4-mini` | 75 | 450 | 7.5 |
+| `mai-code-1-flash-picker` | 75 | 450 | 7.5 |
 | `kimi-k2.7-code` | 95 | 400 | 19 |
 | `claude-haiku-4.5` | 100 | 500 | 10 |
 | `gemini-3.5-flash` | 150 | 900 | 15 |
-| `gemini-3.6-flash` | 150 | 750 | 15 |
-| `gpt-5.3-codex` | 175 | 1400 | 17 |
+| `gpt-5.3-codex` | 175 | 1400 | 17.5 |
 | `claude-sonnet-5` | 200 | 1000 | 20 |
-| `gemini-3.1-pro-preview` | 200 | 1200 | 20 |
 | `gpt-5.6-terra` | 200 | 1200 | 20 |
-| `grok-4.5` | 200 | **600** | 50 |
 | `gpt-5.4` | 250 | 1500 | 25 |
 | `claude-sonnet-4.6` | 300 | 1500 | 30 |
 | `kimi-k3` | 300 | 1500 | 30 |
-| `claude-sonnet-4.5` | 300 | 1500 | 30 |
 
 （單位：AI credits / 百萬 token）
 
 **鎖住需 Pro+ / Business / Enterprise / Max**：`claude-opus-5`、`claude-opus-4.8`、`claude-opus-4.8-fast`、
-`claude-opus-4.7`、`claude-opus-4.5`、`claude-fable-5`、`gpt-5.5`、`gpt-5.6-sol`。
-**Anthropic 這邊學生方案的天花板是 Sonnet 5，所有 Opus 與 Fable 5 都要付費升級。**
+`claude-opus-4.7`、`claude-fable-5`、`claude-fable-5.1`、`gpt-5.5`、`gpt-5.6-sol`
+（`claude-opus-4.5` 已整個從目錄移除；Fable 系列單價 input 1000 / output 5000，是目錄中最貴）。
+**Anthropic 這邊學生方案的天花板是 Haiku 4.5，Sonnet 要 Pro，所有 Opus 與 Fable 都要 Pro+。**
 
 #### AI credits 是共用池，不是每個模型各有額度
 
@@ -446,30 +450,31 @@ B 類服務（帳號綁定 `.edu.tw` 信箱的服務）是畢業後受影響最�
 credits = tokens × 單價 ÷ 1,000,000     （input / output 分開算，cache 讀取另有折扣價）
 ```
 
-實測驗證（Copilot CLI 起手系統 prompt 約 21k tokens）：
+實測驗證（2026-08-08 實測，用**當時**單價；`grok-4.5` 現已下架、`gemini-3.6-flash` 現已降價。Copilot CLI 起手系統 prompt 約 21k tokens）：
 
 | 模型 | 實測消耗 | 用單價驗算 |
 |------|---------:|-----------|
-| `grok-4.5` | 4.42 | 21.7k×200 + 1.4k×50(cached) + 12×600 = 4.42 ✅ |
-| `gemini-3.6-flash` | 3.23 | 21.6k×150 ÷ 1M = 3.24 ✅ |
+| `grok-4.5`（已下架） | 4.42 | 21.7k×200 + 1.4k×50(cached) + 12×600 = 4.42 ✅ |
+| `gemini-3.6-flash`（時價 150） | 3.23 | 21.6k×150 ÷ 1M = 3.24 ✅ |
 | `kimi-k3` | 6.32 | 21.0k×300 ÷ 1M = 6.30 ✅ |
 
-換算成一個月實際可跑的次數：
+換算成一個月實際可跑的次數（2026-09-02 單價）：
 
 | 用什麼 | 每次 | 1,500 credits 可跑 |
 |--------|-----:|------------------:|
-| `gpt-5.6-luna` | 0.42 | **~3,500 次** |
+| `gpt-5.4-nano` | 0 | **不耗 credits** |
+| `gpt-5.6-luna` | 0.42 | ~3,500 次 |
+| `gemini-3.6-flash` | 1.6 | ~930 次 |
 | `claude-haiku-4.5` | 2.1 | ~700 次 |
-| `gemini-3.6-flash` | 3.2 | ~470 次 |
 | `claude-sonnet-5` | 4.2 | ~350 次 |
-| `claude-sonnet-4.5` / `4.6` / `kimi-k3` | 6.3 | **~240 次** |
+| `claude-sonnet-4.6` / `kimi-k3` | 6.3 | **~240 次** |
 
 實際會更少：對話越長 input 越大（每輪重送全部 context），且 output 單價是 input 的 5–6 倍。
 
 **省 credits 三招**：
-1. 雜事用 `gpt-5.6-luna`（比 Sonnet 便宜 15 倍），難的才切 `claude-sonnet-5`
+1. 雜事用 `gpt-5.6-luna`（比 Sonnet 5 便宜 10 倍），難的才切 `claude-sonnet-5`
 2. cache 讀取只要 1/10 價，同一 session 連續問比每次重開省很多
-3. 要長輸出用 `grok-4.5`（output 僅 600，同級距最便宜），但 cache 讀 50 偏貴，不適合長對話
+3. 品質要求低的批次雜務丟 `gpt-5.4-nano`——單價全為 0，完全不耗 credits
 
 額度用完不會自動扣錢：`Additional usage` 預設 `Not enabled`、budget `$0`，超過就停用到下個月。
 
@@ -482,7 +487,7 @@ npm install -g @github/copilot
 export GH_TOKEN=$(gh auth token)   # 吃 gh 的 token，不必另外 copilot login
 
 copilot --model bogus --log-level debug --log-dir ./cplog -p "hi" --allow-all-tools
-# log 裡搜 'fetched models from CAPI /models'，該行的 "models" 是完整 JSON（50 筆）
+# log 裡搜 'fetched models from CAPI /models'，該行的 "models" 是完整 JSON（2026-09-02 為 49 筆）
 # 每筆的 billing.restricted_to 就是方案白名單：
 #   free / edu / pro / pro_plus / individual_trial / business / enterprise / max
 # billing.token_prices.default 則是上表的單價
