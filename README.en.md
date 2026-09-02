@@ -510,6 +510,24 @@ Copilot CLI supports bringing your own model provider: any OpenAI-compatible end
 
 Models must support **tool calling** and **streaming**, with a context window of at least 128k recommended. Run `copilot help providers` for details.
 
+### GitHub Education Email Re-verification SOP (tested 2026-09-02)
+
+Scenario: your account already has an active student coupon, but you need to switch the academic email it was verified with (transferring schools, or the old email must be freed up for someone else).
+Benefits cannot move between accounts, but the **same account** can re-verify with a new email. The correct order is "add new, delete old, wait for re-evaluation":
+
+1. Go to [Settings → Emails](https://github.com/settings/emails) and add the new academic email. This triggers **sudo mode** (a passkey / authenticator re-confirmation); once done the email shows as `Unverified`
+2. Open the `[GitHub] Please verify your email address` message in the new inbox, click the link, and confirm the email now shows `Verified`
+3. Remove the old academic email (the `…` menu next to it → Delete). It is released immediately and can be attached to another GitHub account
+4. Wait for GitHub's **monthly eligibility re-evaluation** to revoke the old coupon (in practice up to about a month). Copilot may be revoked first, creating a short gap
+5. Once `Start an application` on the Education benefits page unlocks, [reapply](https://docs.github.com/en/education/about-github-education/github-education-for-students/apply-to-github-education-as-a-student) with the new email plus proof of enrollment (student ID / enrollment certificate / a student-portal screenshot). The new expiry date is whatever the approval page shows
+
+Pitfalls hit in testing:
+
+- While the old coupon is active, the `Start an application` button is `disabled=true` — **this is not a bug**; stripping the disabled attribute in devtools won't help, you can only wait for re-evaluation
+- `education.github.com/discount_requests/application` is the "GitHub Enterprise for your school" form, **not** the individual student application; individuals always go through Settings → Education benefits
+- Sudo mode swallows your first submit: after re-confirming your identity, check the email was actually added, and resubmit if not
+- Partner offers in the Pack start counting from the moment you activate them; re-verifying does **not** reset them. [Copilot student eligibility is re-evaluated monthly](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students), so once the verification email is removed the old coupon will eventually lapse
+
 ## Requirements
 
 - A valid `.edu.tw` email address (currently enrolled)

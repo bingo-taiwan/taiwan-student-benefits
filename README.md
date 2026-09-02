@@ -504,6 +504,24 @@ Copilot CLI 支援自帶模型供應商，可接 OpenAI 相容端點、Azure Ope
 
 模型必須支援 **tool calling** 與 **streaming**，建議 context window 至少 128k。細節執行 `copilot help providers`。
 
+### GitHub Education 換信箱重新驗證 SOP（2026-09-02 實測）
+
+情境：帳號已有生效中的學生 coupon，但驗證用的學術信箱要換（轉學、換學校、原信箱要釋出給別人用）。
+福利不能跨帳號轉移，但**同一帳號**可以換信箱重新驗證，正確順序是「先加新、再刪舊、等重評」：
+
+1. 到 [Settings → Emails](https://github.com/settings/emails) 加入新學術信箱。這步會觸發 **sudo mode**（要求 passkey / 驗證器 App 再確認一次身分），完成後信箱顯示 `Unverified`
+2. 到新信箱收 `[GitHub] Please verify your email address` 驗證信，點連結後回設定頁確認變成 `Verified`
+3. 移除舊學術信箱（信箱列旁 `…` 選單 → Delete）。移除後立即釋出，可綁到其他 GitHub 帳號
+4. 等 GitHub **月度資格重評**把舊 coupon 收回（實務上最長約一個月）。期間 Copilot 可能先被收回，形成短暫空窗
+5. Education benefits 頁的 `Start an application` 解鎖後，用新信箱＋在學證明（學生證 / 註冊證明 / 校務系統截圖）[重新申請](https://docs.github.com/en/education/about-github-education/github-education-for-students/apply-to-github-education-as-a-student)。新到期日以核准頁面顯示為準
+
+實測踩到的坑：
+
+- 舊 coupon 生效期間，`Start an application` 按鈕是 `disabled=true`——**這不是 bug**，用開發者工具移除 disabled 硬送也沒用，只能等重評
+- `education.github.com/discount_requests/application` 是「學校申請 GitHub Enterprise」的表單，**不是**個人學生申請頁；個人一律走 Settings → Education benefits
+- sudo mode 會吃掉第一次送出：驗完身分回來要確認信箱真的加上了，沒加上就再送一次
+- Pack 合作夥伴的限時優惠從你啟用那刻起算，重新驗證**不會**重置它們；[Copilot 學生資格每月自動重評](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-students)，驗證信箱被移除後舊 coupon 遲早失效
+
 ## 系統需求
 
 - 有效的 `.edu.tw` 電子信箱（在學中）
