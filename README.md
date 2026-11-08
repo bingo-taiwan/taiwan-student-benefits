@@ -224,6 +224,7 @@ reminder.log                   ← 提醒紀錄（持續累加）
 | [Notion Plus](https://www.notion.com/product/notion-for-education) | B | **是** | 需遷移 | 全能筆記與專案管理，課堂筆記、專題進度、知識庫（學校需在 WHED） |
 | [Microsoft 365](https://www.microsoft.com/zh-tw/education/products/office) | B | **是** | 失去存取 | Word 寫報告、Excel 資料分析、PPT 簡報、Teams 線上開會 |
 | [Obsidian](https://obsidian.md/) | A | 否 | 可保留 | 本地 Markdown 筆記，雙向連結建知識網路，完全離線可用 |
+| [Glasp Student](https://glasp.co/students) | B | **是**（學術信箱） | 方案到期 | 網頁、PDF、YouTube 劃重點，AI 摘要與 AI 對話（上限見官方頁面）；12 個月，在學期間可續訂，不需信用卡 |
 
 ### 影音串流
 
